@@ -1,12 +1,13 @@
 import React from 'react';
-import { AiFillPlayCircle } from 'react-icons/ai';
 import { SiEthereum } from 'react-icons/si';
 import { BsInfoCircle } from 'react-icons/bs';
-
+import { useState } from 'react';
 import { Loader } from './';
 
 const commonStyle = 'min-h-[70px] sm:px-0 px-2 sm:min-w-[120px] flex justify-center items-center border-[0.5px] border-gray-400 text-sm font-light text-white';
 const Welcome = () => {
+
+    const [copied, setCopied] = useState(false);
 
     const Input = ({ placeholder, type, name, value }) => {
         return (
@@ -29,11 +30,12 @@ const Welcome = () => {
 
     };
 
+
     return (
         <div className='flex w-full justify-center items-center'>
              <div className='flex mf:flex-row flex-col items-start justify-between md:p-20 py-12 px-4'>
                  <div className='flex flex-1 justify-start flex-col mf:mr-10 '>
-                    <h1 className='text-3xl sm:text-5xl text-gradient py-1'>
+                    <h1 className='text-3xl sm:text-5xl text-cyan-500 py-1'>
                         Send Crypto <br /> Across the world
                     </h1>
                     <p className='text-slate-300 mt-5 font-light md:w-9/12 w-10/12 text-base'>
@@ -49,10 +51,10 @@ const Welcome = () => {
                         <div className={`sm:rounded-tr-none max-sm:rounded-tr-2xl ${commonStyle}`}>
                             Ethereum
                         </div>
-                        <div className={`sm:rounded-tr-2xl max-sm:rounded-tr-none ${commonStyle}${commonStyle}`}>
+                        <div className={`sm:rounded-tr-2xl max-sm:rounded-tr-none ${commonStyle}`}>
                             Security
                         </div>
-                        <div className={`sm:rounded-bl-2xl max-sm:rounded-bl-none ${commonStyle}${commonStyle}`}>
+                        <div className={`sm:rounded-bl-2xl max-sm:rounded-bl-none ${commonStyle}`}>
                             WEB 3.0
                         </div>
                         <div className={`sm:rounded-bl-none max-sm:rounded-bl-2xl ${commonStyle}`}>
@@ -68,15 +70,23 @@ const Welcome = () => {
                         <div className='flex p-3 justify-end items-start flex-col rounded-xl h-40 w-72 my-5 eth-card white-glassmorphism'>
                             <div className='flex justify-between w-full h-full'>
                                 <div className='w-full flex justify-between items-start'>
-                                    <div className='w-10 h-10 rounded-full border-2 border-white flex justify-center items-center'>
+                                    <div className='w-10 h-10 rounded-full border-2 border-[silver] flex justify-center items-center'>
                                         <SiEthereum fontSize={21} color='white' />
                                     </div>
                                     <BsInfoCircle fontSize={18} color='white' />
                                 </div>
                             </div>
-                            <div className='bg-slate-300 rounded-full px-2'>
-                                <p className='text-slate-500 text-sm font-light'>
+                            <div className='relative bg-slate-300 rounded-full px-2'>
+                                <p className='text-slate-500 text-sm font-light hover:cursor-pointer'
+                                onClick={() => {
+                                    navigator.clipboard.writeText('Heheeee');
+                                    setCopied(true);
+                                    setTimeout(() => {setCopied(false)}, 3000)}}
+                                >
                                     0x2SFE08D...OXV3
+                                </p>
+                                <p className={`min-w-max text-slate-300 font-normal text-xs absolute ${copied? 'opacity-100 -top-4 -translate-y-1 transition-all' : 'opacity-0'} z-50 right-[50%] translate-x-[50%]`}>
+                                        Copied to clipboard
                                 </p>
                             </div>
                             <div>
@@ -91,7 +101,7 @@ const Welcome = () => {
                             <Input placeholder={'Keyword (Gif)'} name='keyword' type='text' handleChange={ () => {} }/>
                             <Input placeholder={'Message'} name='message' type='text' handleChange={ () => {} }/>
                             <div className='w-full h-[1px] bg-gray-400 my-5'/>
-                            {false ? (<Loader />)
+                            {false ? (<Loader title='Sending'/>)
                             : (
                                 <button type='button' className='text-white p-2 border-[1px] border-[#5b6364] rounded-xl w-full hover:border-slate-200 hover:text-slate-300' onClick={handleSubmit}>
                                     Send Now

@@ -30,9 +30,8 @@ const Navbar = () => {
                  <li className='bg-[#2952e3] py-2 px-7 mx-4 rounded-full text-center hover:bg-[#2546bd]'>Login</li>
             </ul>
             <div className='flex relative'>
-                 { toggleMenu 
-                 ? <AiOutlineClose fontSize={30} className='text-white md:hidden cursor-pointer' onClick={() => setToggleMenu(false)} />
-                 : <HiMenuAlt4 fontSize={30} className='text-white md:hidden cursor-pointer' onClick={() => setToggleMenu(true)} />
+                 { !toggleMenu 
+                    ? <HiMenuAlt4 fontSize={30} className='text-white md:hidden cursor-pointer' onClick={() => setToggleMenu(true)} /> : null
                 }
                 { toggleMenu && (
                     <ul className='z-5 fixed top-0 -right-2 p-3 w-[60vw] h-screen shadow-md md:hidden list-none
